@@ -265,6 +265,9 @@ export const fireClick = (node) => {
 }
 
 export const animationEndEvent = (() => {
+  if (typeof document === 'undefined' || !document) {
+    return false
+  }
   const testEl = document.createElement('div')
   const transEndEventNames = {
     'WebkitAnimation': 'webkitAnimationEnd',

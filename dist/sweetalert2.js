@@ -3,9 +3,9 @@
  * Released under the MIT License.
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.Sweetalert2 = factory());
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.Sweetalert2 = factory());
 }(this, (function () { 'use strict';
 
 var defaultParams = {
@@ -347,6 +347,9 @@ var fireClick = function fireClick(node) {
 };
 
 var animationEndEvent = function () {
+  if (typeof document === 'undefined' || !document) {
+    return false;
+  }
   var testEl = document.createElement('div');
   var transEndEventNames = {
     'WebkitAnimation': 'webkitAnimationEnd',
@@ -446,6 +449,69 @@ var _extends = Object.assign || function (target) {
   }
 
   return target;
+};
+
+var get = function get(object, property, receiver) {
+  if (object === null) object = Function.prototype;
+  var desc = Object.getOwnPropertyDescriptor(object, property);
+
+  if (desc === undefined) {
+    var parent = Object.getPrototypeOf(object);
+
+    if (parent === null) {
+      return undefined;
+    } else {
+      return get(parent, property, receiver);
+    }
+  } else if ("value" in desc) {
+    return desc.value;
+  } else {
+    var getter = desc.get;
+
+    if (getter === undefined) {
+      return undefined;
+    }
+
+    return getter.call(receiver);
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var set = function set(object, property, value, receiver) {
+  var desc = Object.getOwnPropertyDescriptor(object, property);
+
+  if (desc === undefined) {
+    var parent = Object.getPrototypeOf(object);
+
+    if (parent !== null) {
+      set(parent, property, value, receiver);
+    }
+  } else if ("value" in desc && desc.writable) {
+    desc.value = value;
+  } else {
+    var setter = desc.set;
+
+    if (setter !== undefined) {
+      setter.call(receiver, value);
+    }
+  }
+
+  return value;
 };
 
 var modalParams = _extends({}, defaultParams);
